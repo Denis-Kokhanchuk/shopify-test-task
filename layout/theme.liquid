@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+  <head>
+    {% # Inlined CSS Variables %}
+    {% render 'css-variables' %}
+
+    {% # Load and preload the critical CSS %}
+    {{ 'critical.css' | asset_url | stylesheet_tag: preload: true }}
+
+    {% # Social, title, etc. %}
+    {% render 'meta-tags' %}
+
+    {{ content_for_header }}
+
+    {# Правильне підключення Swiper CSS з папки assets #}
+    {{ 'swiper-bundle.min.css' | asset_url | stylesheet_tag }}
+
+    {{ 'theme.css' | asset_url | stylesheet_tag }} {# Ваш основний файл CSS #}
+    {{ 'base.css' | asset_url | stylesheet_tag }} {# Інші ваші CSS файли #}
+  </head>
+
+  <body>
+    {% sections 'header-group' %}
+
+    <main role="main" id="MainContent">
+      {{ content_for_layout }}
+    </main>
+
+    {% sections 'footer-group' %}
+
+    {# Правильне підключення Swiper JS з папки assets #}
+    {{ 'swiper-bundle.min.js' | asset_url | script_tag }}
+
+    {# Твій кастомний скрипт для Swiper (якщо він є) #}
+    <script src="{{ 'product-swiper.js' | asset_url }}"></script>
+
+    {# Якщо у вас є інші глобальні скрипти, додавайте їх тут #}
+    {{ 'theme.js' | asset_url | script_tag }}
+
+  </body>
+</html>
